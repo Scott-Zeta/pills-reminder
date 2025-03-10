@@ -1,8 +1,10 @@
 import { View, Text, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useRef } from 'react';
+import { useRouter } from 'expo-router';
 
 export default function SplashScreen() {
+  const router = useRouter();
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const scaleAnim = useRef(new Animated.Value(0.1)).current;
 
@@ -20,6 +22,13 @@ export default function SplashScreen() {
         useNativeDriver: true,
       }),
     ]).start();
+
+    const timer = setTimeout(() => {
+      // Navigate to the next screen.
+      router.replace('/auth');
+    }, 1500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
