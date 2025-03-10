@@ -1,13 +1,56 @@
 import { View, Text, TouchableOpacity } from 'react-native';
+import * as LocalAuthentication from 'expo-local-authentication';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'expo-router';
 
 export default function AuthScreen() {
+  const router = useRouter();
   const [hasBiometrics, setBiometrics] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Check if the device has biometrics and enrolled
+  useEffect(() => {
+    checkBiometrics();
+  }, []);
+  const checkBiometrics = async () => {
+    const hasHardware = await LocalAuthentication.hasHardwareAsync();
+    const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+    setBiometrics(hasHardware && isEnrolled);
+  };
+
+  const authenticate = async () => {
+    try {
+      setIsAuthenticating(true);
+      setError(null);
+
+      const hasHardware = await LocalAuthentication.hasHardwareAsync();
+      const hasBiometrics = await LocalAuthentication.isEnrolledAsync();
+
+      const auth = await LocalAuthentication.authenticateAsync({
+        promptMessage:
+          hasHardware && hasBiometrics
+            ? 'Use Face ID or Touch ID to continue'
+            : 'Enter your PIN to continue',
+        fallbackLabel: 'Use PIN',
+        cancelLabel: 'Cancel',
+        disableDeviceFallback: false,
+      });
+
+      if (auth.success) {
+        router.replace('/home');
+      } else {
+        setError('Authentication failed. Please try again.');
+      }
+    } catch (error) {
+      setError('An error occured, Please try again');
+      console.error(error);
+    } finally {
+      setIsAuthenticating(false);
+    }
+  };
   return (
     <LinearGradient colors={['#4CAF50', '#2E7D32']} style={{ flex: 1 }}>
       <View className="flex-1 p-5 items-center justify-center">
@@ -36,6 +79,8 @@ export default function AuthScreen() {
             className={`bg-green-600 py-4 px-7 rounded-xl w-full flex-row items-center justify-center ${
               isAuthenticating ? 'opacity-70' : ''
             }`}
+            onPress={authenticate}
+            disabled={isAuthenticating}
           >
             <Ionicons
               name={hasBiometrics ? 'finger-print-outline' : 'keypad-outline'}
