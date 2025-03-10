@@ -32,7 +32,7 @@ export default function SplashScreen() {
   }, []);
 
   return (
-    <View className="flex-1 justify-center items-center bg-green-500">
+    <View className="flex-1 justify-center items-center bg-green-600">
       <Animated.View
         style={{
           opacity: fadeAnim,
