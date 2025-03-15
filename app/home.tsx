@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Animated,
   Dimensions,
+  SafeAreaView,
 } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -81,25 +82,31 @@ function CircularProgress({
 
 export default function HomeScreen() {
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <LinearGradient colors={['#4CAF50', '#2E7D32']} style={{ flex: 1 }}>
-        <View>
+    <LinearGradient colors={['#4CAF50', '#2E7D32']} style={{ flex: 1 }}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <SafeAreaView>
           <View>
             <View>
-              <Text>Daily Progress</Text>
+              <View>
+                <Text>Daily Progress</Text>
+              </View>
+              <TouchableOpacity>
+                <Ionicons
+                  name="notifications-outline"
+                  size={24}
+                  color="white"
+                />
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity>
-              <Ionicons name="notifications-outline" size={24} color="white" />
-            </TouchableOpacity>
+            {/* Circular Progress Bar */}
+            <CircularProgress
+              progress={50}
+              totalDosage={10}
+              completedDosage={5}
+            />
           </View>
-          {/* Circular Progress Bar */}
-          <CircularProgress
-            progress={50}
-            totalDosage={10}
-            completedDosage={5}
-          />
-        </View>
-      </LinearGradient>
-    </ScrollView>
+        </SafeAreaView>
+      </ScrollView>
+    </LinearGradient>
   );
 }
