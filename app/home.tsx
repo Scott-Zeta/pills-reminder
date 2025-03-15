@@ -2,6 +2,38 @@ import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { CircularProgress } from '@/components/CircularProgressBar';
+import { Link } from 'expo-router';
+
+const QUICK_ACTIONS = [
+  {
+    icon: 'add-circle-outline' as const,
+    label: 'Add\nMedication',
+    route: '/medications/add' as const,
+    color: '#2E7D32',
+    gradient: ['#4CAF50', '#2E7D32'] as [string, string],
+  },
+  {
+    icon: 'calendar-outline' as const,
+    label: 'Calendar\nView',
+    route: '/calendar' as const,
+    color: '#1976D2',
+    gradient: ['#2196F3', '#1976D2'] as [string, string],
+  },
+  {
+    icon: 'time-outline' as const,
+    label: 'History\nLog',
+    route: '/history' as const,
+    color: '#C2185B',
+    gradient: ['#E91E63', '#C2185B'] as [string, string],
+  },
+  {
+    icon: 'medical-outline' as const,
+    label: 'Refill\nTracker',
+    route: '/refills' as const,
+    color: '#E64A19',
+    gradient: ['#FF5722', '#E64A19'] as [string, string],
+  },
+];
 
 export default function HomeScreen() {
   return (
@@ -40,6 +72,29 @@ export default function HomeScreen() {
           />
         </View>
       </LinearGradient>
+      {/* Actions */}
+
+      <View>
+        <View>
+          <Text>Quick Actions</Text>
+          <View>
+            {QUICK_ACTIONS.map((action) => (
+              <Link href={action.route} key={action.label} asChild>
+                <TouchableOpacity>
+                  <LinearGradient colors={action.gradient}>
+                    <View>
+                      <View>
+                        <Ionicons name={action.icon} size={28} color="white" />
+                      </View>
+                      <Text>{action.label}</Text>
+                    </View>
+                  </LinearGradient>
+                </TouchableOpacity>
+              </Link>
+            ))}
+          </View>
+        </View>
+      </View>
     </ScrollView>
   );
 }
