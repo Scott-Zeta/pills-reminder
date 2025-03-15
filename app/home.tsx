@@ -119,11 +119,38 @@ export default function HomeScreen() {
         </View>
         {false ? (
           <View>
+            <Ionicons name="medical-outline" size={48} color="#ccc" />
             <Text>No medications scheduled for today</Text>
+            <Link href="/medications/add" asChild>
+              <TouchableOpacity>
+                <Text>Add Medication</Text>
+              </TouchableOpacity>
+            </Link>
           </View>
         ) : (
           <View>
-            <Text>Render today's Medication</Text>
+            <View>
+              <Ionicons name="medical" size={24} />
+            </View>
+            <View>
+              <Text>Medication Name</Text>
+              <Text>Medication Dosage</Text>
+            </View>
+            <View>
+              <Ionicons name="time-outline" size={16} color="#666" />
+              <Text>Medication time</Text>
+            </View>
+
+            {false ? (
+              <View>
+                <Ionicons name="checkmark-circle" size={20} color="#4CAF50" />
+                <Text>Taken</Text>
+              </View>
+            ) : (
+              <TouchableOpacity onPress={() => console.log('Take')}>
+                <Text>Take</Text>
+              </TouchableOpacity>
+            )}
           </View>
         )}
       </View>
