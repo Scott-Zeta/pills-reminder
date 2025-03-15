@@ -74,19 +74,29 @@ export default function HomeScreen() {
       </LinearGradient>
       {/* Actions */}
 
-      <View>
-        <View>
-          <Text>Quick Actions</Text>
-          <View>
+      <View className="flex-1 pt-5">
+        <View className="px-5 mb-6">
+          <Text className="text-xl font-bold text-gray-900 mb-1">
+            Quick Actions
+          </Text>
+          <View className="flex flex-row flex-wrap gap-3 mt-4 justify-around">
             {QUICK_ACTIONS.map((action) => (
               <Link href={action.route} key={action.label} asChild>
-                <TouchableOpacity>
-                  <LinearGradient colors={action.gradient}>
-                    <View>
-                      <View>
+                <TouchableOpacity className="w-[48%] h-[110px] rounded-xl overflow-hidden">
+                  <LinearGradient
+                    colors={action.gradient}
+                    style={{
+                      flex: 1,
+                      padding: 15,
+                    }}
+                  >
+                    <View className="flex-1 justify-between">
+                      <View className="w-10 h-10 rounded-md bg-white/20 flex items-center justify-center">
                         <Ionicons name={action.icon} size={28} color="white" />
                       </View>
-                      <Text>{action.label}</Text>
+                      <Text className="text-sm font-semibold text-white mt-2">
+                        {action.label}
+                      </Text>
                     </View>
                   </LinearGradient>
                 </TouchableOpacity>
