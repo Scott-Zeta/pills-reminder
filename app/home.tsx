@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { CircularProgress } from '@/components/CircularProgressBar';
 import { Link } from 'expo-router';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { useState } from 'react';
 
 const QUICK_ACTIONS = [
   {
@@ -37,6 +38,8 @@ const QUICK_ACTIONS = [
 ];
 
 export default function HomeScreen() {
+  const [showNotification, setShowNotification] = useState(false);
+
   return (
     <SafeAreaProvider>
       <SafeAreaView className="flex-1 bg-gray-100" edges={['bottom']}>
@@ -60,7 +63,10 @@ export default function HomeScreen() {
                 <Text className="text-lg font-semibold text-white opacity-90">
                   Daily Progress
                 </Text>
-                <TouchableOpacity className="relative p-2 bg-white/15 rounded-md ml-2">
+                <TouchableOpacity
+                  className="relative p-2 bg-white/15 rounded-md ml-2"
+                  onPress={() => setShowNotification(true)}
+                >
                   <Ionicons
                     name="notifications-outline"
                     size={24}
@@ -192,11 +198,16 @@ export default function HomeScreen() {
           </View>
 
           {/* Modal */}
-          <Modal visible={true} animationType="slide" transparent={true}>
+          <Modal
+            visible={showNotification}
+            animationType="slide"
+            transparent={true}
+            onRequestClose={() => setShowNotification(false)}
+          >
             <View className="flex-1 bg-black/50 justify-end">
               <View className="bg-white rounded-t-2xl p-5 max-h-[80%]">
                 <View className="flex flex-row justify-between items-center mb-5">
-                  <TouchableOpacity onPress={() => console.log('Close Modal')}>
+                  <TouchableOpacity onPress={() => setShowNotification(false)}>
                     <Ionicons name="close" size={24} color="black" />
                   </TouchableOpacity>
                 </View>
