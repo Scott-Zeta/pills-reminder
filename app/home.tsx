@@ -43,6 +43,7 @@ export default function HomeScreen() {
         <ScrollView
           showsVerticalScrollIndicator={false}
           className="flex-1 bg-gray-100"
+          bounces={false}
         >
           {/* Header */}
           <LinearGradient
