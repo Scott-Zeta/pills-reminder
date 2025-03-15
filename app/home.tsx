@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Modal } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { CircularProgress } from '@/components/CircularProgressBar';
@@ -190,6 +190,32 @@ export default function HomeScreen() {
               </View>
             )}
           </View>
+
+          {/* Modal */}
+          <Modal visible={true} animationType="slide" transparent={true}>
+            <View className="flex-1 bg-black/50 justify-end">
+              <View className="bg-white rounded-t-2xl p-5 max-h-[80%]">
+                <View className="flex flex-row justify-between items-center mb-5">
+                  <TouchableOpacity onPress={() => console.log('Close Modal')}>
+                    <Ionicons name="close" size={24} color="black" />
+                  </TouchableOpacity>
+                </View>
+                {/* Modal Content */}
+                <View className="flex flex-row p-4 rounded-lg bg-gray-100 mb-2">
+                  <View className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                    <Ionicons name="medical" size={48} />
+                  </View>
+                  <View className="flex-1">
+                    <Text className="text-base font-semibold text-gray-800 mb-1">
+                      Mediction Name
+                    </Text>
+                    <Text className="text-sm text-gray-500 mb-1">Dosage</Text>
+                    <Text className="text-xs text-gray-400">Time</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </Modal>
         </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
