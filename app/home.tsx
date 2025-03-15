@@ -108,47 +108,63 @@ export default function HomeScreen() {
       </View>
 
       {/* Schedule */}
-      <View>
-        <View>
-          <Text>Today's Schedule</Text>
+      <View className="px-5">
+        <View className="flex flex-row justify-between items-center mb-4">
+          <Text className="text-xl font-bold text-gray-900 mb-1">
+            Today's Schedule
+          </Text>
           <Link href="/calendar" asChild>
             <TouchableOpacity>
-              <Text>See All</Text>
+              <Text className="text-green-700 font-semibold">See All</Text>
             </TouchableOpacity>
           </Link>
         </View>
         {false ? (
-          <View>
+          <View className="flex items-center p-6 bg-white rounded-xl mt-2">
             <Ionicons name="medical-outline" size={48} color="#ccc" />
-            <Text>No medications scheduled for today</Text>
+            <Text className="text-base text-gray-500 mt-2 mb-5">
+              No medications scheduled for today
+            </Text>
             <Link href="/medications/add" asChild>
-              <TouchableOpacity>
-                <Text>Add Medication</Text>
+              <TouchableOpacity className="bg-green-700 px-5 py-2 rounded-lg">
+                <Text className="text-white font-semibold">Add Medication</Text>
               </TouchableOpacity>
             </Link>
           </View>
         ) : (
-          <View>
-            <View>
+          <View className="flex flex-row items-center bg-white rounded-xl p-4 mb-3 shadow-md">
+            <View className="w-12 h-12 rounded-full flex items-center justify-center mr-4">
               <Ionicons name="medical" size={24} />
             </View>
             <View>
-              <Text>Medication Name</Text>
-              <Text>Medication Dosage</Text>
-            </View>
-            <View>
-              <Ionicons name="time-outline" size={16} color="#666" />
-              <Text>Medication time</Text>
-            </View>
-
-            {false ? (
               <View>
+                <Text className="text-base font-semibold text-gray-800 mb-1">
+                  Medication Name
+                </Text>
+                <Text className="text-sm text-gray-500 mb-1">
+                  Medication Dosage
+                </Text>
+              </View>
+              <View className="flex flex-row items-center">
+                <Ionicons name="time-outline" size={16} color="#666" />
+                <Text className="ml-2 text-sm text-gray-500">
+                  Medication time
+                </Text>
+              </View>
+            </View>
+            {true ? (
+              <View className="flex flex-row items-center bg-green-100 px-3 py-1.5 rounded-lg ml-auto">
                 <Ionicons name="checkmark-circle" size={20} color="#4CAF50" />
-                <Text>Taken</Text>
+                <Text className="text-green-600 font-semibold text-sm ml-1">
+                  Taken
+                </Text>
               </View>
             ) : (
-              <TouchableOpacity onPress={() => console.log('Take')}>
-                <Text>Take</Text>
+              <TouchableOpacity
+                className="py-2 px-4 rounded-lg ml-2"
+                onPress={() => console.log('Take')}
+              >
+                <Text className="text-white font-semibold text-sm">Take</Text>
               </TouchableOpacity>
             )}
           </View>
