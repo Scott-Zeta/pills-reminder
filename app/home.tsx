@@ -41,6 +41,7 @@ export default function HomeScreen() {
       showsVerticalScrollIndicator={false}
       className="flex-1 bg-gray-100"
     >
+      {/* Header */}
       <LinearGradient
         colors={['#4CAF50', '#2E7D32']}
         style={{
@@ -72,8 +73,8 @@ export default function HomeScreen() {
           />
         </View>
       </LinearGradient>
-      {/* Actions */}
 
+      {/* Actions */}
       <View className="flex-1 pt-5">
         <View className="px-5 mb-6">
           <Text className="text-xl font-bold text-gray-900 mb-1">
@@ -82,7 +83,7 @@ export default function HomeScreen() {
           <View className="flex flex-row flex-wrap gap-3 mt-4 justify-around">
             {QUICK_ACTIONS.map((action) => (
               <Link href={action.route} key={action.label} asChild>
-                <TouchableOpacity className="w-[48%] h-[110px] rounded-xl overflow-hidden">
+                <TouchableOpacity className="w-[48%] h-[100px] rounded-xl overflow-hidden">
                   <LinearGradient
                     colors={action.gradient}
                     style={{
@@ -104,6 +105,27 @@ export default function HomeScreen() {
             ))}
           </View>
         </View>
+      </View>
+
+      {/* Schedule */}
+      <View>
+        <View>
+          <Text>Today's Schedule</Text>
+          <Link href="/calendar" asChild>
+            <TouchableOpacity>
+              <Text>See All</Text>
+            </TouchableOpacity>
+          </Link>
+        </View>
+        {false ? (
+          <View>
+            <Text>No medications scheduled for today</Text>
+          </View>
+        ) : (
+          <View>
+            <Text>Render today's Medication</Text>
+          </View>
+        )}
       </View>
     </ScrollView>
   );
