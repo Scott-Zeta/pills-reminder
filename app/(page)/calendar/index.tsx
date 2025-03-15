@@ -1,10 +1,15 @@
-import { View, Text } from 'react-native';
-import React from 'react';
+import { View, Text, ScrollView } from 'react-native';
+import PageHeader from '@/components/ui/PageHeader';
 
-export default function CalendarPage() {
+export default function CalendarScreen() {
   return (
-    <View>
-      <Text>CalendarPage</Text>
-    </View>
+    <>
+      <PageHeader title="Calendar" />
+      <View className="flex-1 bg-gray-100">
+        <ScrollView>
+          <Text>CalendarScreen</Text>
+        </ScrollView>
+      </View>
+    </>
   );
 }
