@@ -60,13 +60,29 @@ export default function AddMedicationScreen() {
               {dateOptions.map((option) => (
                 <TouchableOpacity
                   key={option.id}
-                  className="w-5/12 bg-white rounded-xl p-4 m-1 flex items-center border border-gray-300 shadow-sm"
+                  className={`w-5/12 rounded-xl p-4 m-1 flex items-center border border-gray-300 shadow-sm ${
+                    date === option.id
+                      ? 'bg-green-700 border-green-700'
+                      : 'bg-white border-gray-300'
+                  }`}
                   onPress={() => setdate(option.id)}
                 >
-                  <View className="w-12 h-12 rounded-full bg-gray-200 flex justify-center items-center mb-2">
-                    <Ionicons name={option.icon} size={24} color="#666" />
+                  <View
+                    className={`w-12 h-12 rounded-full flex justify-center items-center mb-2 ${
+                      date === option.id ? 'bg-white/20' : 'bg-gray-200'
+                    }`}
+                  >
+                    <Ionicons
+                      name={option.icon}
+                      size={24}
+                      color={date === option.id ? 'white' : '#666'}
+                    />
                   </View>
-                  <Text className="text-sm font-semibold text-gray-800 text-center">
+                  <Text
+                    className={`text-sm font-semibold text-gray-800 text-center ${
+                      date === option.id ? 'text-white' : 'text-gray-800'
+                    }`}
+                  >
                     {option.name}
                   </Text>
                 </TouchableOpacity>
