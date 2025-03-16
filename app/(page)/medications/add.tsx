@@ -14,8 +14,18 @@ const dateOptions = [
   { id: 2, name: 'Specific Days', icon: 'calendar' as const },
 ];
 
+const days = [
+  { label: 'M', value: 'Monday' },
+  { label: 'Tu', value: 'Tuesday' },
+  { label: 'W', value: 'Wednesday' },
+  { label: 'Th', value: 'Thursday' },
+  { label: 'F', value: 'Friday' },
+  { label: 'Sa', value: 'Saturday' },
+  { label: 'Su', value: 'Sunday' },
+];
+
 export default function AddMedicationScreen() {
-  const [date, setdate] = useState(0);
+  const [dateOption, setdateOption] = useState(0);
 
   return (
     <>
@@ -61,26 +71,26 @@ export default function AddMedicationScreen() {
                 <TouchableOpacity
                   key={option.id}
                   className={`w-5/12 rounded-xl p-4 m-1 flex items-center border border-gray-300 shadow-sm ${
-                    date === option.id
+                    dateOption === option.id
                       ? 'bg-green-700 border-green-700'
                       : 'bg-white border-gray-300'
                   }`}
-                  onPress={() => setdate(option.id)}
+                  onPress={() => setdateOption(option.id)}
                 >
                   <View
                     className={`w-12 h-12 rounded-full flex justify-center items-center mb-2 ${
-                      date === option.id ? 'bg-white/20' : 'bg-gray-200'
+                      dateOption === option.id ? 'bg-white/20' : 'bg-gray-200'
                     }`}
                   >
                     <Ionicons
                       name={option.icon}
                       size={24}
-                      color={date === option.id ? 'white' : '#666'}
+                      color={dateOption === option.id ? 'white' : '#666'}
                     />
                   </View>
                   <Text
                     className={`text-sm font-semibold text-gray-800 text-center ${
-                      date === option.id ? 'text-white' : 'text-gray-800'
+                      dateOption === option.id ? 'text-white' : 'text-gray-800'
                     }`}
                   >
                     {option.name}
