@@ -10,8 +10,26 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 
 const dateOptions = [
-  { id: 1, name: 'Everyday', icon: 'sync-outline' as const },
-  { id: 2, name: 'Specific Days of the Week', icon: 'calendar' as const },
+  {
+    id: 1,
+    name: 'Everyday',
+    icon: 'sync-outline' as const,
+    value: [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ],
+  },
+  {
+    id: 2,
+    name: 'Specific Days of the Week',
+    icon: 'calendar' as const,
+    value: ['Thursday'],
+  },
 ];
 
 const days = [
@@ -86,7 +104,10 @@ export default function AddMedicationScreen() {
                       ? 'bg-green-700 border-green-700'
                       : 'bg-white border-gray-300'
                   }`}
-                  onPress={() => setdateOption(option.id)}
+                  onPress={() => {
+                    setdateOption(option.id);
+                    setSelectedDays(option.value);
+                  }}
                 >
                   <View
                     className={`w-12 h-12 rounded-full flex justify-center items-center mb-2 ${
@@ -111,34 +132,36 @@ export default function AddMedicationScreen() {
             </View>
 
             {/* Specific days Picker */}
-            <View className="mb-1">
-              <Text className="text-2xl font-bold text-gray-900 my-2">
-                On These Days
-              </Text>
-              <View className="flex flex-row justify-center items-center bg-white p-2 m-4 rounded-xl border border-gray-300 shadow-sm">
-                {days.map((day) => (
-                  <TouchableOpacity
-                    key={day.value}
-                    onPress={() => toggleDay(day.value)}
-                    className={`mx-1 w-10 h-10 rounded-full flex items-center justify-center ${
-                      selectedDays.includes(day.value)
-                        ? 'bg-green-700'
-                        : 'bg-transparent'
-                    }`}
-                  >
-                    <Text
-                      className={`text-lg ${
+            {dateOption === 2 && (
+              <View className="mb-1">
+                <Text className="text-2xl font-bold text-gray-900 my-2">
+                  On These Days
+                </Text>
+                <View className="flex flex-row justify-center items-center bg-white p-2 m-4 rounded-xl border border-gray-300 shadow-sm">
+                  {days.map((day) => (
+                    <TouchableOpacity
+                      key={day.value}
+                      onPress={() => toggleDay(day.value)}
+                      className={`mx-1 w-10 h-10 rounded-full flex items-center justify-center ${
                         selectedDays.includes(day.value)
-                          ? 'text-white'
-                          : 'text-gray-900'
+                          ? 'bg-green-700'
+                          : 'bg-transparent'
                       }`}
                     >
-                      {day.label}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+                      <Text
+                        className={`text-lg ${
+                          selectedDays.includes(day.value)
+                            ? 'text-white'
+                            : 'text-gray-900'
+                        }`}
+                      >
+                        {day.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
               </View>
-            </View>
+            )}
           </View>
 
           {/* Time */}
