@@ -6,6 +6,7 @@ import {
   TextInput,
 } from 'react-native';
 import PageHeader from '@/components/ui/PageHeader';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function AddMedicationScreen() {
   return (
@@ -45,8 +46,26 @@ export default function AddMedicationScreen() {
           {/* Date */}
           <View className="mb-1">
             <Text className="text-2xl font-bold text-gray-900 my-2">
-              When will you take this?
+              Which day will you take this?
             </Text>
+            <View className="flex flex-row justify-around">
+              <TouchableOpacity className="w-5/12 bg-white rounded-xl p-4 m-1 flex items-center border border-gray-300 shadow-sm">
+                <View className="w-12 h-12 rounded-full bg-gray-200 flex justify-center items-center mb-2">
+                  <Ionicons name="sync-outline" size={24} color="#666" />
+                </View>
+                <Text className="text-lg font-semibold text-gray-800 text-center">
+                  Everyday
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity className="w-5/12 bg-white rounded-xl p-4 m-1 flex items-center border border-gray-300 shadow-sm">
+                <View className="w-12 h-12 rounded-full bg-gray-200 flex justify-center items-center mb-2">
+                  <Ionicons name="calendar" size={24} color="#666" />
+                </View>
+                <Text className="text-sm font-semibold text-gray-800 text-center">
+                  Specific Days of the Week
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
           {/* Time */}
