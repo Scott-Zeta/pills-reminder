@@ -7,8 +7,16 @@ import {
 } from 'react-native';
 import PageHeader from '@/components/ui/PageHeader';
 import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
+
+const dateOptions = [
+  { id: 1, name: 'Everyday', icon: 'sync-outline' as const },
+  { id: 2, name: 'Specific Days', icon: 'calendar' as const },
+];
 
 export default function AddMedicationScreen() {
+  const [date, setdate] = useState(0);
+
   return (
     <>
       <PageHeader title="Add Medication" />
@@ -49,22 +57,20 @@ export default function AddMedicationScreen() {
               Which day will you take this?
             </Text>
             <View className="flex flex-row justify-around">
-              <TouchableOpacity className="w-5/12 bg-white rounded-xl p-4 m-1 flex items-center border border-gray-300 shadow-sm">
-                <View className="w-12 h-12 rounded-full bg-gray-200 flex justify-center items-center mb-2">
-                  <Ionicons name="sync-outline" size={24} color="#666" />
-                </View>
-                <Text className="text-lg font-semibold text-gray-800 text-center">
-                  Everyday
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity className="w-5/12 bg-white rounded-xl p-4 m-1 flex items-center border border-gray-300 shadow-sm">
-                <View className="w-12 h-12 rounded-full bg-gray-200 flex justify-center items-center mb-2">
-                  <Ionicons name="calendar" size={24} color="#666" />
-                </View>
-                <Text className="text-sm font-semibold text-gray-800 text-center">
-                  Specific Days of the Week
-                </Text>
-              </TouchableOpacity>
+              {dateOptions.map((option) => (
+                <TouchableOpacity
+                  key={option.id}
+                  className="w-5/12 bg-white rounded-xl p-4 m-1 flex items-center border border-gray-300 shadow-sm"
+                  onPress={() => setdate(option.id)}
+                >
+                  <View className="w-12 h-12 rounded-full bg-gray-200 flex justify-center items-center mb-2">
+                    <Ionicons name={option.icon} size={24} color="#666" />
+                  </View>
+                  <Text className="text-sm font-semibold text-gray-800 text-center">
+                    {option.name}
+                  </Text>
+                </TouchableOpacity>
+              ))}
             </View>
           </View>
 
