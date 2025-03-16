@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 const dateOptions = [
   { id: 1, name: 'Everyday', icon: 'sync-outline' as const },
-  { id: 2, name: 'Specific Days', icon: 'calendar' as const },
+  { id: 2, name: 'Specific Days of the Week', icon: 'calendar' as const },
 ];
 
 const days = [
@@ -26,6 +26,17 @@ const days = [
 
 export default function AddMedicationScreen() {
   const [dateOption, setdateOption] = useState(0);
+  const [selectedDays, setSelectedDays] = useState<string[]>([]);
+
+  const toggleDay = (day: string) => {
+    setSelectedDays((prev) => {
+      if (prev.includes(day)) {
+        if (prev.length === 1) return prev;
+        return prev.filter((d) => d !== day);
+      }
+      return [...prev, day];
+    });
+  };
 
   return (
     <>
@@ -97,6 +108,36 @@ export default function AddMedicationScreen() {
                   </Text>
                 </TouchableOpacity>
               ))}
+            </View>
+
+            {/* Specific days Picker */}
+            <View className="mb-1">
+              <Text className="text-2xl font-bold text-gray-900 my-2">
+                On These Days
+              </Text>
+              <View className="flex flex-row justify-center items-center bg-white p-2 m-4 rounded-xl border border-gray-300 shadow-sm">
+                {days.map((day) => (
+                  <TouchableOpacity
+                    key={day.value}
+                    onPress={() => toggleDay(day.value)}
+                    className={`mx-1 w-10 h-10 rounded-full flex items-center justify-center ${
+                      selectedDays.includes(day.value)
+                        ? 'bg-green-700'
+                        : 'bg-transparent'
+                    }`}
+                  >
+                    <Text
+                      className={`text-lg ${
+                        selectedDays.includes(day.value)
+                          ? 'text-white'
+                          : 'text-gray-900'
+                      }`}
+                    >
+                      {day.label}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
             </View>
           </View>
 
